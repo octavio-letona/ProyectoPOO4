@@ -1,35 +1,26 @@
 
 package org.octavioletona.model;
 
-public class EmpleadoAsalariado extends Empleado{
+public class EmpleadoAsalariado extends Empleado {
 
-    private double salarioMensual;
-    
-    public EmpleadoAsalariado(){
-        
-    }    
-    
-       public EmpleadoAsalariado(String id, String nombre, double salarioMensual){
-          super(id, nombre);
-         this.salarioMensual = salarioMensual;  
-    }    
-    
+    private double salarioMensual; // Atributo único
 
-    public void setSalarioMensual(double salarioMensual){
-            //acceder al atributo de clase y asignar el pareametro del metodo
-            //validaciones
-            this.salarioMensual = salarioMensual;
+    public EmpleadoAsalariado(String id, String nombre, double salarioMensual) {
+        super(id, nombre);
+        this.salarioMensual = salarioMensual;
     }
-    
-    public double getSalarioMensual(){
+
+    public double getSalarioMensual() {
+        return salarioMensual;
+    }
+
+    public void setSalarioMensual(double salarioMensual) {
+        this.salarioMensual = salarioMensual;
+    }
+
+    // 4. Polimorfismo
+    @Override
+    public double calcularTotal() {
         return this.salarioMensual;
     }
-    
-    @Override
-    public  double calcularTotal() {
-        return this.calcularTotal();
-        
-    }
-    
-
 }

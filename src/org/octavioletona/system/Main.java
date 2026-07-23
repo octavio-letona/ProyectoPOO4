@@ -8,25 +8,27 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.octavioletona.view.VistaPrincipal;
 
-public class Main extends Application{
-    
-    public static void main(String[] args) {
+public class Main extends Application {
+
+   @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Sistema de Gestión de Empleados");
+
+        // Instanciamos el componente visual que creamos por separado
+        VistaPrincipal vista = new VistaPrincipal();
+
+        // Le asignamos la vista a la escena (Scene)
+        Scene scene = new Scene(vista, 400, 500);
+        
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+            public static void main(String[] args) {
+
         launch(args);
     }
-    
-    @Override
-    public void start(Stage escenarioPrincipal) throws Exception {
-        //nodo raiz
-        Pane raiz = new Pane();
-        //escena
-        Scene escena = new Scene(raiz, 450, 600);
-        //cargamos escen en escenario y mostramos escenario
-        escenarioPrincipal.setScene(escena);
-        escenarioPrincipal.show();
-        
-        
-        
     }
     
-}
+
