@@ -3,36 +3,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.octavioletona.system;
-
+import java.net.URL;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.octavioletona.controller.EmpleadoController;
+import org.octavioletona.view.EmpleadoView;
 import org.octavioletona.view.VistaPrincipal;
 import org.octavioletona.view.VistaPrincipalUI;
 
 public class Main extends Application {
 
    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Sistema de Gestión de Empleados");
+    public void start(Stage escenaPrincipal) {
+        escenaPrincipal.setTitle("Sistema de Gestión de Empleados");
 
-        // Instanciamos el componente visual que creamos por separado
-                //VistaPrincipal vista = new VistaPrincipal();
-        VistaPrincipalUI vistaUI = new VistaPrincipalUI();
-        // Le asignamos la vista a la escena (Scene)
-        TabPane vista = vistaUI.obtenerTabPane();
+        EmpleadoView vista = new EmpleadoView();
+        new EmpleadoController(vista);
 
-        Scene scene = new Scene(vista, 400, 500);
+        TabPane raiz = vista.getTabPane();
+        Scene escena = new Scene(raiz, 450, 600);
         
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        String cssPath = getClass().getResource("/Style/EmpleadoStyle.css").toExternalForm();
+      
+        escena.getStylesheets().add(cssPath);
+
+        escenaPrincipal.setScene(escena);
+        escenaPrincipal.setResizable(false);
+        escenaPrincipal.show();
     }
+  
+        
             public static void main(String[] args) {
 
         launch(args);
     }
-    }
+}
+    
     
 

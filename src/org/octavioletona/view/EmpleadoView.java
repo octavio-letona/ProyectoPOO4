@@ -6,10 +6,18 @@ package org.octavioletona.view;
 
 
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
 public class EmpleadoView {
 
     private TabPane tabPane = new TabPane();
@@ -33,39 +41,14 @@ public class EmpleadoView {
     private ListView<String> listViewResumen = new ListView<>();
 
     // Constantes de Diseño Lavanda (CSS)
-    private final String COLOR_FONDO_LAVANDA = "-fx-background-color: #EAEAFF;";
-    private final String ESTILO_TARJETA = "-fx-background-color: #FFFFFF; "
-                                        + "-fx-background-radius: 20px; "
-                                        + "-fx-padding: 24px; "
-                                        + "-fx-effect: dropshadow(three-pass-box, rgba(100, 92, 255, 0.06), 15, 0, 0, 8);";
-    
-    private final String ESTILO_INPUT = "-fx-background-color: #F4F3FF; "
-                                      + "-fx-background-radius: 12px; "
-                                      + "-fx-padding: 12px; "
-                                      + "-fx-text-fill: #1A134B; "
-                                      + "-fx-prompt-text-fill: #8C89A0; "
-                                      + "-fx-font-size: 13px; "
-                                      + "-fx-font-family: 'Segoe UI', Arial;";
 
-    private final String ESTILO_LABEL = "-fx-text-fill: #1A134B; "
-                                      + "-fx-font-weight: bold; "
-                                      + "-fx-font-size: 13px; "
-                                      + "-fx-font-family: 'Segoe UI', Arial;";
-
-    private final String ESTILO_BOTON_PRIMARIO = "-fx-background-color: linear-gradient(to right, #6D5BFA, #8372FF); "
-                                               + "-fx-text-fill: white; "
-                                               + "-fx-background-radius: 12px; "
-                                               + "-fx-padding: 14px; "
-                                               + "-fx-font-weight: bold; "
-                                               + "-fx-font-size: 13px; "
-                                               + "-fx-cursor: hand;";
 
     public EmpleadoView() {
         inicializarUI();
     }
 
     private void inicializarUI() {
-        tabPane.setStyle(COLOR_FONDO_LAVANDA);
+        tabPane.getStyleClass().add("tab-pane");
 
         // -------------------------------------------------------------
         // TAB 1: REGISTRO (Diseño de Tarjeta)
@@ -75,11 +58,11 @@ public class EmpleadoView {
         tabRegistro.setStyle("-fx-background-color: white; -fx-background-radius: 10px 10px 0px 0px; -fx-font-weight: bold; -fx-text-fill: #6D5BFA;");
 
         StackPane wrapperRegistro = new StackPane();
-        wrapperRegistro.setStyle(COLOR_FONDO_LAVANDA);
+        wrapperRegistro.getStyleClass().add("tab-pane"); // Hereda el fondo lavanda
         wrapperRegistro.setPadding(new Insets(20));
 
         VBox cardRegistro = new VBox(12);
-        cardRegistro.setStyle(ESTILO_TARJETA);
+        cardRegistro.getStyleClass().add("card"); // <-- Aplicamos la clase CSS "card"
 
         aplicarEstiloLabel(new Label("ID del Empleado:"), new Label("Nombre del Empleado:"), new Label("Tipo de Contrato:"));
         aplicarEstiloInput(txtId, txtNombre, cbTipo);
@@ -91,7 +74,7 @@ public class EmpleadoView {
         cbTipo.setPromptText("Seleccione una opción");
         cbTipo.setMaxWidth(Double.MAX_VALUE);
 
-        btnGuardar.setStyle(ESTILO_BOTON_PRIMARIO);
+        btnGuardar.getStyleClass().add("btn-primary"); // <-- Botón estilizado por CSS
         btnGuardar.setMaxWidth(Double.MAX_VALUE);
 
         cardRegistro.getChildren().addAll(
@@ -113,20 +96,14 @@ public class EmpleadoView {
         tabResumen.setStyle("-fx-background-color: #F4F3FF; -fx-background-radius: 10px 10px 0px 0px; -fx-text-fill: #8C89A0;");
 
         StackPane wrapperResumen = new StackPane();
-        wrapperResumen.setStyle(COLOR_FONDO_LAVANDA);
+        wrapperResumen.getStyleClass().add("tab-pane");
         wrapperResumen.setPadding(new Insets(20));
 
         VBox cardResumen = new VBox(15);
-        cardResumen.setStyle(ESTILO_TARJETA);
-
-        listViewResumen.setStyle("-fx-background-color: #FFFFFF; "
-                               + "-fx-background-radius: 12px; "
-                               + "-fx-border-color: #E2DFFF; "
-                               + "-fx-border-radius: 12px; "
-                               + "-fx-border-width: 1.5px; "
-                               + "-fx-padding: 5px;");
-
-        btnCalcular.setStyle(ESTILO_BOTON_PRIMARIO);
+        cardResumen.getStyleClass().add("card");
+        listViewResumen.getStyleClass().add("modern-list");
+        
+      btnCalcular.getStyleClass().add("btn-primary");
         btnCalcular.setMaxWidth(Double.MAX_VALUE);
 
         cardResumen.getChildren().addAll(
@@ -195,22 +172,22 @@ public class EmpleadoView {
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-background-color: white; -fx-font-family: 'Segoe UI';");
-        dialogPane.getButtonTypes().forEach(buttonType -> {
-            Button btn = (Button) dialogPane.lookupButton(buttonType);
-            btn.setStyle("-fx-background-color: #6D5BFA; -fx-text-fill: white; -fx-background-radius: 6px;");
-        });
+                dialogPane.getStyleClass().add("card"); // Aplicamos tarjeta a la alerta también
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
 
     // --- Helpers de Estilos ---
     private void aplicarEstiloInput(Control... controles) {
-        for (Control c : controles) c.setStyle(ESTILO_INPUT);
+        for (Control c : controles) {
+            c.getStyleClass().add("input-field");
+        }
     }
 
     private void aplicarEstiloLabel(Label... etiquetas) {
-        for (Label l : etiquetas) l.setStyle(ESTILO_LABEL);
+        for (Label l : etiquetas) {
+            l.getStyleClass().add("custom-label");
+        }
     }
 
     // --- GETTERS (Para uso exclusivo del Controlador) ---
